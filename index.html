@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base target="_self" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mduduzi Sithole - Portfolio</title>
+    <meta
+      name="description"
+      content="IT Graduate specializing in Power Apps development and Azure data engineering. Explore my portfolio and technical skills."
+    />
+    <meta
+      name="keywords"
+      content="IT graduate, Power Apps developer, Azure, data engineering, portfolio"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              /* Muted, less-bright palette */
+              primary: "#0f766e" /* teal-700 */,
+              secondary: "#064e3b" /* darker teal */,
+              accent: "#06b6d4" /* cyan */,
+              dark: "#0f172a" /* slate-900 */,
+              light: "#f1f5f9" /* slate-100 */,
+            },
+            animation: {
+              float: "float 6s ease-in-out infinite",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .gradient-bg {
+        /* Muted teal gradient */
+        background: linear-gradient(135deg, #0f766e 0%, #064e3b 100%);
+      }
+      .skill-bar {
+        transition: width 2s ease-in-out;
+      }
+      /* Education cards: entrance animation + hover lift */
+      @keyframes eduFade {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      #education .edu-card {
+        opacity: 0;
+        transform: translateY(12px);
+        animation: eduFade 600ms ease forwards;
+        animation-delay: var(--delay, 0ms);
+        will-change: transform, opacity;
+      }
+      /* small subtle focus outline for keyboard users */
+      #education .edu-card:focus {
+        outline: 3px solid rgba(6, 182, 212, 0.12);
+        outline-offset: 3px;
+      }
+      /* hover/focus lift for education */
+      #education .edu-card:hover,
+      #education .edu-card:focus {
+        transform: translateY(-6px) scale(1.02) !important;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12) !important;
+      }
+      /* Projects: smooth hover lift + subtle color tint */
+      #projects .project-card {
+        transition: transform 220ms ease, box-shadow 220ms ease,
+          background-color 220ms ease;
+        will-change: transform, box-shadow, background-color;
+      }
+      #projects .project-card:focus {
+        outline: 3px solid rgba(6, 182, 212, 0.12);
+        outline-offset: 3px;
+      }
+      #projects .project-card:hover,
+      #projects .project-card:focus {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        background-color: rgba(6, 182, 212, 0.06); /* light cyan tint */
+      }
+      /* Navigation link underline + lift animation */
+      nav a {
+        position: relative;
+        display: inline-block;
+        transition: color 180ms ease, transform 180ms ease;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        height: 2px;
+        width: 0;
+        background: #06b6d4; /* accent color */
+        border-radius: 2px;
+        transition: width 240ms ease;
+      }
+      nav a:hover::after,
+      nav a:focus::after {
+        width: 100%;
+      }
+      nav a:hover,
+      nav a:focus {
+        transform: translateY(-3px);
+        color: #0f766e; /* primary */
+      }
+      nav a:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.08);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-light font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+      <div class="container mx-auto px-6 py-3">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <span class="ml-2 text-dark font-semibold">Mduduzi Sithole</span>
+          </div>
+          <div class="hidden md:flex space-x-8">
+            <a
+              href="#home"
+              class="text-dark hover:text-primary transition-colors"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="text-dark hover:text-primary transition-colors"
+              >About</a
+            >
+            <a
+              href="#skills"
+              class="text-dark hover:text-primary transition-colors"
+              >Skills</a
+            >
+            <a
+              href="#experience"
+              class="text-dark hover:text-primary transition-colors"
+              >Experience</a
+            >
+            <a
+              href="#contact"
+              class="text-dark hover:text-primary transition-colors"
+              >Contact</a
+            >
+          </div>
+          <div class="md:hidden">
+            <button
+              id="mobileMenuBtn"
+              class="text-dark"
+              aria-controls="mobileMenu"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i id="mobileMenuIcon" class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu (hidden on md+) -->
+      <div
+        id="mobileMenu"
+        class="md:hidden hidden bg-white shadow-md"
+        role="menu"
+        aria-hidden="true"
+      >
+        <div class="px-6 py-4 space-y-2">
+          <a
+            href="#home"
+            class="block text-dark py-2 hover:text-primary transition-colors"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="block text-dark py-2 hover:text-primary transition-colors"
+            >About</a
+          >
+          <a
+            href="#skills"
+            class="block text-dark py-2 hover:text-primary transition-colors"
+            >Skills</a
+          >
+          <a
+            href="#experience"
+            class="block text-dark py-2 hover:text-primary transition-colors"
+            >Experience</a
+          >
+          <a
+            href="#contact"
+            class="block text-dark py-2 hover:text-primary transition-colors"
+            >Contact</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg min-h-screen flex items-center pt-20">
+      <div class="container mx-auto px-6 py-20">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+              Software Developer
+            </h1>
+            <p class="text-xl text-white opacity-90 mb-8">
+              Specializing in Power Apps Development & Azure Data Engineering
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#contact"
+                class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all"
+                >Get In Touch</a
+              >
+              <a
+                href="#projects"
+                class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition-all"
+                >View Projects</a
+              >
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <div class="relative">
+              <div
+                class="w-64 h-64 md:w-80 md:h-80 bg-white rounded-full overflow-hidden shadow-2xl animate-float"
+              >
+                <img
+                  src="images/Mduduzi.jpg"
+                  alt="Professional portrait of Mduduzi Sithole"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <!-- availability badge removed per request -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">
+          About Me
+        </h2>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <img
+              src="images/Mduduzi.jpg"
+              alt="Mduduzi Sithole working on technology projects"
+              class="rounded-lg shadow-xl w-full"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <h3 class="text-2xl font-semibold text-primary mb-6">
+              Hello! I'm Mduduzi Sithole
+            </h3>
+            <p class="text-gray-700 mb-6">
+              Recent Information Technology graduate with a passion for creating
+              innovative solutions through Power Apps development and Azure data
+              engineering. I thrive in collaborative environments where I can
+              leverage my technical skills to solve complex problems and drive
+              business value.
+            </p>
+            <p class="text-gray-700 mb-8">
+              My experience working with data engineers has given me valuable
+              insights into data pipeline development, cloud infrastructure, and
+              enterprise application integration. I'm constantly learning and
+              adapting to new technologies to stay at the forefront of the
+              industry.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex items-center">
+                <div class="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                <span class="text-gray-700">Power Apps Expert</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                <span class="text-gray-700">Azure Certified</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                <span class="text-gray-700">Data Engineering</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-3 h-3 bg-primary rounded-full mr-3"></div>
+                <span class="text-gray-700">Cloud Solutions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">
+          Technical Skills
+        </h2>
+
+        <!-- Power Apps Skills -->
+        <div class="mb-12">
+          <h3 class="text-2xl font-semibold text-primary mb-8">
+            Power Platform Expertise
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6 items-stretch">
+            <div
+              class="bg-white p-6 rounded-lg shadow-md h-full flex flex-col justify-between"
+            >
+              <div class="flex items-center mb-3">
+                <i class="fas fa-layer-group text-3xl text-primary mr-3"></i>
+                <h4 class="text-lg font-semibold">Power Apps Development</h4>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div
+                  class="bg-primary h-3 rounded-full skill-bar"
+                  style="width: 90%"
+                ></div>
+              </div>
+              <p class="text-sm text-gray-600">
+                Canvas Apps, Model-driven Apps, Custom Components
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-lg shadow-md h-full flex flex-col justify-between"
+            >
+              <div class="flex items-center mb-3">
+                <i class="fas fa-cogs text-3xl text-primary mr-3"></i>
+                <h4 class="text-lg font-semibold">Power Automate</h4>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div
+                  class="bg-primary h-3 rounded-full skill-bar"
+                  style="width: 85%"
+                ></div>
+              </div>
+              <p class="text-sm text-gray-600">
+                Workflow Automation, API Integration, Business Process Flows
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Azure & Data Engineering -->
+        <div class="mb-12">
+          <h3 class="text-2xl font-semibold text-primary mb-8">
+            Azure & Data Engineering
+          </h3>
+          <div class="grid md:grid-cols-3 gap-6 items-stretch">
+            <div
+              class="bg-white p-6 rounded-lg shadow-md h-full flex flex-col justify-between"
+            >
+              <div class="flex items-center mb-3">
+                <i
+                  class="fas fa-project-diagram text-3xl text-primary mr-3"
+                ></i>
+                <h4 class="text-lg font-semibold">Azure Data Factory</h4>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div
+                  class="bg-primary h-3 rounded-full skill-bar"
+                  style="width: 80%"
+                ></div>
+              </div>
+              <p class="text-sm text-gray-600">
+                Data Pipelines, ETL Processes, Data Integration
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-lg shadow-md h-full flex flex-col justify-between"
+            >
+              <div class="flex items-center mb-3">
+                <i class="fas fa-database text-3xl text-primary mr-3"></i>
+                <h4 class="text-lg font-semibold">Azure SQL Database</h4>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div
+                  class="bg-primary h-3 rounded-full skill-bar"
+                  style="width: 75%"
+                ></div>
+              </div>
+              <p class="text-sm text-gray-600">
+                Database Management, Query Optimization, Data Modeling
+              </p>
+            </div>
+
+            <!-- Mobile development (Dart & Flutter) -->
+            <div
+              class="bg-white p-6 rounded-lg shadow-md h-full flex flex-col justify-between"
+            >
+              <div class="flex items-center mb-3">
+                <i class="fas fa-mobile-alt text-3xl text-primary mr-3"></i>
+                <h4 class="text-lg font-semibold">Mobile Development</h4>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div
+                  class="bg-primary h-3 rounded-full skill-bar"
+                  style="width: 82%"
+                ></div>
+              </div>
+              <p class="text-sm text-gray-600">
+                Dart & Flutter — Cross-platform mobile apps, Firebase
+                integration
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Technologies -->
+        <div>
+          <h3 class="text-2xl font-semibold text-primary mb-8">
+            Additional Technologies
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+              <i class="fab fa-microsoft text-3xl text-blue-600 mb-2"></i>
+              <p class="font-semibold">Microsoft 365</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+              <i class="fab fa-js-square text-3xl text-yellow-500 mb-2"></i>
+              <p class="font-semibold">JavaScript</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+              <i class="fab fa-python text-3xl text-blue-800 mb-2"></i>
+              <p class="font-semibold">Python</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+              <i class="fas fa-database text-3xl text-gray-600 mb-2"></i>
+              <p class="font-semibold">SQL</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md text-center">
+              <i class="fas fa-code text-3xl text-green-700 mb-2"></i>
+              <p class="font-semibold">C#</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">
+          Projects
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-md project-card"
+            tabindex="0"
+          >
+            <h3 class="text-2xl font-semibold text-primary mb-3">
+              Find Me App
+            </h3>
+            <p class="text-gray-700 mb-4">
+              A cross-platform mobile app built with Dart & Flutter. Uses
+              Firebase for authentication and storage to let users share and
+              discover locations in real-time.
+            </p>
+            <p class="text-sm text-gray-600">Tech: Dart, Flutter, Firebase</p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md project-card"
+            tabindex="0"
+          >
+            <h3 class="text-2xl font-semibold text-primary mb-3">
+              Student Website
+            </h3>
+            <p class="text-gray-700 mb-4">
+              A university/student portal created using C# ASP.NET MVC. Features
+              role-based authentication, course management, and responsive UI.
+            </p>
+            <p class="text-sm text-gray-600">
+              Tech: C#, ASP.NET MVC, SQL Server
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-lg shadow-md project-card"
+            tabindex="0"
+          >
+            <h3 class="text-2xl font-semibold text-primary mb-3">
+              Onboarding App
+            </h3>
+            <p class="text-gray-700 mb-4">
+              An internal onboarding experience built on the Power Platform to
+              help new employees get familiar with the organisation, processes,
+              and teams.
+            </p>
+            <p class="text-sm text-gray-600">
+              Tech: Power Platform (Power Apps, Power Automate), Dataverse
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">
+          Professional Experience
+        </h2>
+
+        <div class="space-y-12">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <img
+                src="images/Databricks.png"
+                alt="Data engineering collaboration project"
+                class="rounded-lg shadow-xl w-full"
+                loading="lazy"
+              />
+            </div>
+            <div>
+              <h3 class="text-2xl font-semibold text-primary mb-4">
+                Data Engineering Collaboration
+              </h3>
+              <p class="text-gray-700 mb-6">
+                Worked closely with data engineering teams to develop and
+                optimize data pipelines using Azure Data Factory. Collaborated
+                on building scalable solutions for data ingestion,
+                transformation, and loading processes.
+              </p>
+              <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>
+                  Developed ETL processes for large-scale data migration
+                  projects
+                </li>
+                <li>Implemented data validation and quality checks</li>
+                <li>
+                  Collaborated with cross-functional teams to ensure data
+                  integrity
+                </li>
+                <li>
+                  Optimized pipeline performance and reduced processing time by
+                  30%
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-semibold text-primary mb-4">
+                Power Apps Development
+              </h3>
+              <p class="text-gray-700 mb-6">
+                Created enterprise-grade applications using Microsoft Power
+                Apps, delivering custom solutions that streamline business
+                processes and improve operational efficiency.
+              </p>
+              <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>
+                  Built canvas apps with complex business logic and data
+                  connections
+                </li>
+                <li>
+                  Integrated with various data sources including SharePoint and
+                  SQL databases
+                </li>
+                <li>
+                  Implemented responsive designs for mobile and desktop users
+                </li>
+                <li>Reduced manual processes by 60% through automation</li>
+              </ul>
+            </div>
+            <div>
+              <img
+                src="powerapps_designer_interface_mobile.jpg"
+                alt="Power Apps development project"
+                class="rounded-lg shadow-xl w-full"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-16">
+          Let's Connect
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-2xl font-semibold text-white mb-6">Get In Touch</h3>
+            <p class="text-white opacity-90 mb-8">
+              I'm always interested in new opportunities and collaborations.
+              Whether you have a project in mind or just want to connect, feel
+              free to reach out!
+            </p>
+            <!-- Success message (hidden by default) -->
+            <div
+              id="contactSuccess"
+              class="hidden bg-white bg-opacity-20 text-white p-4 rounded-md mt-4"
+            >
+              Thank you — your message was sent. I'll get back to you soon.
+            </div>
+
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <div
+                  class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4"
+                >
+                  <i class="fas fa-envelope text-white"></i>
+                </div>
+                <span class="text-white">jobe970@email.com</span>
+              </div>
+              <div class="flex items-center">
+                <div
+                  class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4"
+                >
+                  <i class="fas fa-phone text-white"></i>
+                </div>
+                <span class="text-white">+27 71 0233 276</span>
+              </div>
+              <div class="flex items-center">
+                <div
+                  class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4"
+                >
+                  <i class="fas fa-map-marker-alt text-white"></i>
+                </div>
+                <span class="text-white">Gauteng, Tembisa</span>
+              </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="mt-8">
+              <h4 class="text-white font-semibold mb-4">Follow Me</h4>
+              <div class="flex space-x-4">
+                <a
+                  href="https://www.linkedin.com/in/mduduzi-sithole-23617b1a5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
+                >
+                  <i class="fab fa-linkedin-in text-white"></i>
+                </a>
+                <a
+                  href="https://github.com/IamMduduzi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all"
+                  aria-label="GitHub"
+                  title="GitHub"
+                >
+                  <i class="fab fa-github text-white"></i>
+                </a>
+                <a
+                  href="https://x.com/iamSihlee"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all"
+                  aria-label="Twitter"
+                  title="Twitter"
+                >
+                  <i class="fab fa-twitter text-white"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-xl">
+            <h3 class="text-2xl font-semibold text-dark mb-6">Send Message</h3>
+            <form
+              id="contactForm"
+              class="space-y-6"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+            >
+              <!-- Web3Forms: replace the access_key value below with your API key -->
+              <input
+                type="hidden"
+                name="access_key"
+                value="0efe9f92-4c26-482c-ae64-00ed750112a2"
+              />
+              <input
+                type="hidden"
+                name="subject"
+                value="New contact message from portfolio"
+              />
+
+              <div>
+                <label class="block text-gray-700 mb-2">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 mb-2">Message</label>
+                <textarea
+                  name="message"
+                  rows="5"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                ></textarea>
+              </div>
+
+              <!-- Inline feedback messages -->
+              <div
+                id="contactError"
+                class="hidden bg-red-50 text-red-700 p-3 rounded-md"
+              ></div>
+
+              <button
+                id="contactSubmit"
+                type="submit"
+                class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary transition-colors"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark py-12">
+      <div class="container mx-auto px-6">
+        <div class="text-center">
+          <div class="flex justify-center space-x-6 mb-6">
+            <a
+              href="https://www.linkedin.com/in/mduduzi-sithole-23617b1a5"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition-colors"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+            >
+              <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+            <a
+              href="https://github.com/IamMduduzi"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+              title="GitHub"
+            >
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a
+              href="https://x.com/iamSihlee"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition-colors"
+              aria-label="Twitter"
+              title="Twitter"
+            >
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+          </div>
+          <p class="text-gray-400">
+            © 2025 Mduduzi Sithole. All rights reserved.
+          </p>
+          <p class="text-gray-400 mt-2">
+            Designed with passion for technology and innovation
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Animate skill bars on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const skillBars = entry.target.querySelectorAll(".skill-bar");
+              skillBars.forEach((bar) => {
+                const width = bar.style.width;
+                bar.style.width = "0";
+                setTimeout(() => {
+                  bar.style.width = width;
+                }, 100);
+              });
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      document.querySelectorAll("#skills > div").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Mobile menu toggle + auto-close on link click
+      (function () {
+        const btn = document.getElementById("mobileMenuBtn");
+        const menu = document.getElementById("mobileMenu");
+        const icon = document.getElementById("mobileMenuIcon");
+        if (!btn || !menu) return;
+
+        function openMenu() {
+          menu.classList.remove("hidden");
+          menu.setAttribute("aria-hidden", "false");
+          btn.setAttribute("aria-expanded", "true");
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        }
+
+        function closeMenu() {
+          menu.classList.add("hidden");
+          menu.setAttribute("aria-hidden", "true");
+          btn.setAttribute("aria-expanded", "false");
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (menu.classList.contains("hidden")) openMenu();
+          else closeMenu();
+        });
+
+        // Close when a link is clicked
+        menu.querySelectorAll("a[href^='#']").forEach((a) => {
+          a.addEventListener("click", () => {
+            closeMenu();
+          });
+        });
+
+        // Close when clicking outside the menu on small screens
+        document.addEventListener("click", (e) => {
+          if (window.innerWidth < 768 && !menu.classList.contains("hidden")) {
+            if (
+              !menu.contains(e.target) &&
+              e.target !== btn &&
+              !btn.contains(e.target)
+            ) {
+              closeMenu();
+            }
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeMenu();
+        });
+
+        // Close menu if window resizes above md breakpoint (768px)
+        window.addEventListener("resize", () => {
+          if (window.innerWidth >= 768) closeMenu();
+        });
+      })();
+
+      // Show contact success message if redirected
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("sent") === "true") {
+          const el = document.getElementById("contactSuccess");
+          if (el) {
+            el.classList.remove("hidden");
+            setTimeout(() => el.classList.add("hidden"), 8000);
+          }
+        }
+      })();
+
+      // Web3Forms AJAX submission handler
+      (function () {
+        const form = document.getElementById("contactForm");
+        if (!form) return;
+
+        const submitBtn = document.getElementById("contactSubmit");
+        const successEl = document.getElementById("contactSuccess");
+        const errorEl = document.getElementById("contactError");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!submitBtn) return;
+
+          // Clear previous errors
+          if (errorEl) {
+            errorEl.textContent = "";
+            errorEl.classList.add("hidden");
+          }
+
+          submitBtn.disabled = true;
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = "Sending...";
+
+          try {
+            const formData = new FormData(form);
+            // Send to Web3Forms
+            const res = await fetch(form.action, {
+              method: form.method || "POST",
+              headers: {
+                accept: "application/json",
+              },
+              body: formData,
+            });
+
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error(err?.message || "Submission failed");
+            }
+
+            const data = await res.json().catch(() => ({}));
+
+            // On success show banner and optionally redirect if server returns redirect
+            if (successEl) {
+              successEl.classList.remove("hidden");
+            }
+
+            // If web3forms returned a redirect URL, follow it
+            if (data?.redirect) {
+              window.location.href = data.redirect;
+              return;
+            }
+
+            // Reset form after short delay so user sees success
+            form.reset();
+            setTimeout(() => {
+              if (successEl) successEl.classList.add("hidden");
+            }, 8000);
+          } catch (err) {
+            console.error(err);
+            if (errorEl) {
+              errorEl.textContent = err.message || "Unable to send message.";
+              errorEl.classList.remove("hidden");
+            }
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
